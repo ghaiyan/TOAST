@@ -11,9 +11,8 @@ For .hic format data, you can dump data using juicer_tools.js and get the NxN ma
 in this paper, we use the NxN format matrix as input.
 
 ## 3. Content of folders
-1) preprocess:preprocess the Hi-C data.
-2) src:call codes for identifying, ploting, and evaluating TADs.
-3) TADResilts: all results in this paper.
+call codes for identifying, ploting, and evaluating TADs.
+
 
 ## 4. Input matrix file format:
 The input to CASPIAN is a tab seperated N by N intra-chromosomal contact matrix derived from Hi-C data, where N is the number of equal-sized regions of a chromosome.
