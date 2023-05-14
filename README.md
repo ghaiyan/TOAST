@@ -21,17 +21,17 @@ The input to CASPIAN is a tab seperated N by N intra-chromosomal contact matrix 
 the output is the TAD file at the merge file.
 ## running
 enter the /src folder, you can do the following process:
-(1)/src/toast.py: run to get and plot TADs. you can run it by justing changing the input and output folder.
+(1)toast.py: run to get and plot TADs. you can run it by justing changing the input and output folder.
 
-(2)/src/plot_heatmaps.py: plot heatmaps for all TADs
+(2)plot_heatmaps.py: plot heatmaps for all TADs
 
-(3)/src/evaulate_TAD.py:evalute TADs
+(3)evaulate_TAD.py:evalute TADs
 
-(4)/src/evaulate_TAD-simnarity.py: compare the similarity between TADs.
+(4)evaulate_TAD-simnarity.py: compare the similarity between TADs.
 
-(5)/src/evaluate-achor-count.py:compute the anchor count for Chip-seq factors.
+(5)evaluate-achor-count.py:compute the anchor count for Chip-seq factors.
 
-(6)/src/plot_TAD_markers.py: plot the CHip-seq tracks.
+(6)plot_TAD_markers.py: plot the CHip-seq tracks.
 
-(7)/src/plot-man-figures.py: plot figures in this paper.
+(7)plot-man-figures.py: plot figures in this paper.
 
