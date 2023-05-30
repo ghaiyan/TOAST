@@ -4,14 +4,20 @@ Pytorch 1.7.1, Python 3.6.12, Numpy 1.19.5, Matplotlib 3.3.3, Cooltools 0.4.1, F
 
 ### intall conda and create the virtual environment.
 bash Anaconda3-2020.07-Linux-x86_64.sh
+
 conda create --name pytorch1.7.1 python=3.7
 
 ### intall packages using pip
 pip install flask
+
 pip install numpy
+
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
 pip install matplotlib
+
 pip install seaborn
+
 pip install hdbscan
 
 ## 2. prepare data
