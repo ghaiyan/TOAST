@@ -1,6 +1,19 @@
 # TOAST：a method for identifying Tad bOundaries based on graph Auto-encoders and clustering
 ## 1. before running, you need to install the following package or tools.
 Pytorch 1.7.1, Python 3.6.12, Numpy 1.19.5, Matplotlib 3.3.3, Cooltools 0.4.1, Fanc 0.9.24, Jupyter 1.0.0, Pandas 1.1.5, pyBigWig 0.3.18, seaborn 0.11.1.
+
+### intall conda and create the virtual environment.
+bash Anaconda3-2020.07-Linux-x86_64.sh
+conda create --name pytorch1.7.1 python=3.7
+
+### intall packages using pip
+pip install flask
+pip install numpy
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+pip install matplotlib
+pip install seaborn
+pip install hdbscan
+
 ## 2. prepare data
 you can download the simulated Hi-C contact from paper "Forcato, M. et al. Comparison of computational methods for Hi-C data analysis. Nature methods 14, 679-685 (2017)."
 
