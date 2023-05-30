@@ -3,6 +3,8 @@
 Pytorch 1.7.1, Python 3.6.12, Numpy 1.19.5, Matplotlib 3.3.3, Cooltools 0.4.1, Fanc 0.9.24, Jupyter 1.0.0, Pandas 1.1.5, pyBigWig 0.3.18, seaborn 0.11.1.
 
 ### intall conda and create the virtual environment.
+download the Anaconda3-2020.07-Linux-x86_64.sh file from https://repo.anaconda.com/archive/
+
 bash Anaconda3-2020.07-Linux-x86_64.sh
 
 conda create --name pytorch1.7.1 python=3.7
