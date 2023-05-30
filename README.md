@@ -20,6 +20,15 @@ pip install seaborn
 
 pip install hdbscan
 
+you could also downlaod the TOAST-webserver.zip, and just run the webserver.py using the following code:
+
+>conda activate pytorch1.7.1
+
+>python webserver.py
+
+visit the web linker:  http://127.0.0.1:5000
+
+
 ## 2. prepare data
 you can download the simulated Hi-C contact from paper "Forcato, M. et al. Comparison of computational methods for Hi-C data analysis. Nature methods 14, 679-685 (2017)."
 
