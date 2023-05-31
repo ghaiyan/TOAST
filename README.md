@@ -22,7 +22,8 @@ pip install seaborn
 
 pip install hdbscan
 
-you could also downlaod the TOAST-webserver.zip, and just run the webserver.py using the following code:
+## 2. run the web server version
+When the environment is prepared, you can downlaod the TOAST-webserver.zip, and just run the webserver.py using the following code:
 
 >conda activate pytorch1.7.1
 
@@ -31,7 +32,7 @@ you could also downlaod the TOAST-webserver.zip, and just run the webserver.py u
 visit the web linker:  http://127.0.0.1:5000
 
 
-## 2. prepare data
+## 3. prepare data
 you can download the simulated Hi-C contact from paper "Forcato, M. et al. Comparison of computational methods for Hi-C data analysis. Nature methods 14, 679-685 (2017)."
 
 you can download the real Hi-C data of GM12878 cell line with GEO ID GSE63525 is provided by the Rao Lab.
@@ -40,14 +41,14 @@ For .hic format data, you can dump data using juicer_tools.js and get the NxN ma
 
 in this paper, we use the NxN format matrix as input.
 
-## 3. Content of folders
+## 4. Content of folders
 call codes for identifying, ploting, and evaluating TADs.
 
 
-## 4. Input matrix file format:
+## 5. Input matrix file format:
 The input to CASPIAN is a tab seperated N by N intra-chromosomal contact matrix derived from Hi-C data, where N is the number of equal-sized regions of a chromosome.
 
-## 5. output 
+## 6. output 
 the output is the TAD file at the merge file.
 ## running
 enter the /src folder, you can do the following process:
