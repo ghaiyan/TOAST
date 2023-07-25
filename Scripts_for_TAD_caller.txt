@@ -92,3 +92,41 @@ write.table(TADs,file="4noise_hicseg_coords.txt",sep="\t",row.names=F,col.names=
 ##### 6.ClusterTAD #####
 download file:https://github.com/BDM-Lab/ClusterTAD
 java -jar ClusterTAD.jar '../TAD_results/SimulationData/4noise.hic' 40000
+
+
+########7.DI##########
+1、pip install fanc
+2、../GM12878/4DNFIXP4QG5B.mcool@50kb
+fanc directionality ../GM12878/4DNFIXP4QG5B.mcool@50kb /home/ghaiyan/project/caspian-master/TAD_results/GM2878/50kb/DI/GM12878_50kb.bed -o bed
+fanc boundaries ../TAD_results/GM2878/50kb/DI/GM12878_50kb.directionality ../TAD_results/GM2878/50kb/DI/GM12878_50kb_2mb.DIboundaries -w 2mb
+
+## posprocessing:: Clean up and generate 7 col
+echo "Post processing files"
+perl file_ends_cleaner.pl ../TAD_results/GM2878/50kb/DI/domaincall_software/gm12878_50kb-hmm-output.tad ../TAD_results/GM2878/50kb/DI/domaincall_software/GM12878_50kb.directionality_2mb.DI
+perl file_ends_cleaner.pl gm12878_50kb-hmm-output.tad GM12878_50kb.directionality_2mb.DI| perl converter_7col.pl > hmm_file.hmm
+## Separate file into chromosome separated files
+echo "Post processing files: Breakup files into chromosome separated files"
+mkdir -p HMM/Chrom_Sep
+awk -v Folder=HMM -f Separate_Dixon_7col_by_Chromosome.awk HMM/hmm_file.hmm
+
+## Separate_Dixon_7col_by_Chromosome.awk
+BEGIN{
+ Path=Folder"/Chrom_Sep"
+}
+ {
+ print $0 > Path"/"$1".sep"
+ }
+##
+
+## for each chromosome file generate the final domains
+mkdir -p DI HMM DOMAINS
+chromList="chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22" ## list of chromosomes that have to be processed
+BIN=50000
+for chrom in $chromList
+do
+    echo $chrom
+    echo "Post processing files: Generating Domains"
+    perl hmm_probablity_correcter.pl HMM/Chrom_Sep/$chrom.sep 2 0.99 ${BIN} | perl hmm-state_caller.pl genomesizefile.fai $chrom | perl hmm-state_domains.pl > DOMAINS/$chrom.domain
+done
+
+
