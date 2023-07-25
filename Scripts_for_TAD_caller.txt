@@ -1,0 +1,94 @@
+#####Directory of Hi-C data #####
+##Simulated Hi-C data
+../TAD_results/SimulationData/4noise.hic
+The Hi-C file is NxN matrix
+#####1. CASPAIN ##### 
+download code: git clone https://gitee.com/ghaiyan/caspian.git
+#modify the parametr:metricList,dir,res,hicname
+python Hdbscan-simulatedTAD.py
+
+
+##### 2.TopDom #####
+
+#####simualted data，40kb#####
+library("TopDom")
+chr<-"chr19"
+pathname<-file.path("../TAD_results/SimulationData/4noise.hic")
+data<-readHiC(pathname,chr=chr,binSize = 40e3)
+## Find topological domains using TopDom method
+message("TopDom() ...")
+fit <- TopDom(data, window.size = 5L)
+print(fit)
+str(fit$domain)
+write.table(fit$domain,file="TopDom_20noise.txt",sep = ",")
+
+##### 3.Insulation Score #####
+download File: 
+# TO INSTALL PERL MODULE
+perl Build.pl
+./Build
+./Build install
+
+###### Directory of Files######
+# SI/
+#   scripts/
+#	matrix2insulation.pl
+#   ../TAD_results/SimulationData/4noise.hic  #simualted Hi-C
+
+#####simulated Hi-C，40kb#####
+perl scripts/matrix2insulation.pl -i ../TAD_results/SimulationData/4noise.hic -is 400000 -ids 30000 -im mean -bmoe 3 -nt 0.1 -v
+
+####  Convert the input file format into the input format of SI#####
+import numpy as np
+outpath = "4noise.txt"
+d = np.loadtxt(outpath)
+n = len(d)
+print(n)
+res = 40000
+head = [""]
+for i in range(n):
+    binid = str(i)
+    start = str(i * res)
+    end = str(i * res + res)
+    h = "bin{}|hg19|chrS:{}-{}".format(binid, start, end)
+    head.append(h)
+with open(outpath, "w") as out:
+    out.write("\t".join(head) + "\n")
+    for i in range(n):
+        line = [head[i + 1]]
+        for j in range(n):
+            if d[i,j] == 0:
+                line.append("NA")
+            else:
+                line.append(str(d[i,j]))
+        out.write("\t".join(line) + "\n")
+    out.close()
+
+##### 4.IC-Finder #####
+download File: http://membres-timc.imag.fr/Daniel.Jost/DJ-TIMC/Software.html
+
+dom=IC_finder('../TAD_results/SimulationData/4noise.hic') 
+
+##### 5.HiCseg #####
+library(HiCseg)
+setwd("xxxx")
+matrix<-as.matrix(read.table(file="../TAD_results/SimulationData/4noise.hic"))
+print(head(matrix))
+mat_size<-nrow(matrix) #size_mat
+print(mat_size)
+Kmax=as.integer(mat_size/3)
+print(Kmax)
+TADs<-HiCseg_linkC_R(mat_size,Kmax,"G",matrix,"D")
+write.table(TADs,file="4noise_hicseg.txt",sep="\t",quote=F)
+
+## HiCseg results conversion
+options(scipen=999)
+res<-40000
+results<-read.table("4noise_hicseg.txt",header=T,sep="\t",stringsAsFactors=F)
+results_trim<-results[results$t_hat!=0,]
+TADs<-data.frame("chr"=rep(chr,(nrow(results_trim)-1)),"start"=(results_trim$t_hat[-(nrow(results_trim))]*res),"end"=(results_trim$t_hat[-1]*res))
+write.table(TADs,file="4noise_hicseg_coords.txt",sep="\t",row.names=F,col.names=F,quote=F)
+
+##### 6.ClusterTAD #####
+download file:https://github.com/BDM-Lab/ClusterTAD
+java -jar ClusterTAD.jar '../TAD_results/SimulationData/4noise.hic' 40000
